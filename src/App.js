@@ -60,12 +60,33 @@ class App extends React.Component {
     })
   }
 
+  updateTodos = e => this.setState({
+    [e.target.name]: e.target.value
+  })
+
+  removeCompletedTasks = e =>{
+    e.preventDefault();
+    let newTodos = this.state.todos.filter(todo => !todo.completed);
+    this.setState({ newTodos })
+  }
+
   render() {
     return (
       <div className="App">
         <h2>Todo App</h2>
-        <TodoList todos={this.state.todos} toggleComplete={this.toggleComplete} />
-        <TodoForm addTask={this.addTask} />
+        <TodoList 
+          todos={this.state.todos} 
+          toggleComplete={this.toggleComplete} 
+        />
+
+        <TodoForm 
+          value={this.state.todos}
+          updateTodos={this.updateTodos}
+          addTask={this.addTask}
+          removeCompletedTasks={this.removeCompletedTasks}
+
+        
+        />
 
 
       </div>

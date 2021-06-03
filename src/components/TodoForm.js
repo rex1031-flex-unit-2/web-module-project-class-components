@@ -15,11 +15,15 @@ export default class TodoForm extends Component {
             newTask: e.target.value
         })
 }
+    handleRemove = e =>{
+        const newTodos= this.props.clearCompletedTasks()
+        this.setState({
+            ...this.state,
+            todos: newTodos
+        })
+    }
 
-removeCompletedTasks = e =>{
-    e.preventDefault();
-    
-}
+
 
     handleSubmit = e =>{
         /*Problem: When an item is entered into the input field it stays
@@ -42,10 +46,10 @@ removeCompletedTasks = e =>{
                     name="task"
                     value={this.state.newTask}
                     onChange={this.handleChange}
-                
+                    placeholder="Enter Task"
                 />
                 <button onClick={this.handleSubmit}>Add</button>
-                <button>Remove Complete</button>
+                <button onClick={this.handleRemove}>Remove Complete</button>
             </form>
         )
     }
