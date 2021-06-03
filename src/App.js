@@ -30,28 +30,42 @@ class App extends React.Component {
   // design `App` to be the parent component of your application.
   // this component is going to take care of state, and any change handlers you need to work with your state
   toggleComplete = itemId =>{
-    const newTask = this.state.todos.map(item => {
+    const completedTask = this.state.todos.map(item => {
       if(item.id === itemId){
         return{
           ...item,
           completed: !item.completed
         }
       }
-      console.log('item clicked')
       return item;
     });
     this.setState({
       ...this.state,
-      todos: newTask
+      todos: completedTask
     })
   }
   
+  addTask = taskName =>{
+    const newTask = {
+      task: taskName,
+      id: Date.now(),
+      completed: false
+    };
+    this.setState({
+      ...this.state,
+      todos: [
+        ...this.state.todos,
+        newTask
+      ]
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <h2>Todo App</h2>
         <TodoList todos={this.state.todos} toggleComplete={this.toggleComplete} />
-        <TodoForm />
+        <TodoForm addTask={this.addTask} />
 
 
       </div>
